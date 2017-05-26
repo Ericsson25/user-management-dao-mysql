@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+  'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='manuscript.module.user.management.academic.disciplines.mapper.AcademicDisciplinesMapper'>
+
+	<select id="getDisciplinesAsMap" resultType="manuscript.module.user.management.bean.AcademicDisciplines">
+		SELECT
+			ACADEMIC_DISCIPLINES_ID as academicDisciplinesId,
+			ACADEMIC_DISCIPLINES_NAME as academicDisciplinesName
+		FROM
+			ACADEMIC_DISCIPLINES
+	</select>
+
+	<select id="getDisciplinesAsList" resultType="manuscript.module.user.management.bean.AcademicDisciplines">
+		SELECT
+			ACADEMIC_DISCIPLINES_ID as academicDisciplinesId,
+			ACADEMIC_DISCIPLINES_NAME as academicDisciplinesName
+		FROM
+			ACADEMIC_DISCIPLINES
+	</select>
+	
+	<update id="updateOrInsertDisciplines">
+		INSERT INTO
+			ACADEMIC_DISCIPLINES 
+		(
+			ACADEMIC_DISCIPLINES_ID, 
+			ACADEMIC_DISCIPLINES_NAME
+		)
+		VALUES
+		(
+			#{disciplines.academicDisciplinesId},
+			#{disciplines.academicDisciplinesName}
+		)
+		ON DUPLICATE KEY UPDATE
+			ACADEMIC_DISCIPLINES_NAME = #{disciplines.academicDisciplinesName}
+	</update>
+	
+	<select id="getSingleDisciplinesById" resultType="manuscript.module.user.management.bean.AcademicDisciplines">
+		SELECT
+			ACADEMIC_DISCIPLINES_ID as academicDisciplinesId,
+			ACADEMIC_DISCIPLINES_NAME as academicDisciplinesName
+		FROM
+			ACADEMIC_DISCIPLINES
+		WHERE
+			ACADEMIC_DISCIPLINES_ID = #{id}
+	</select>
+	
+	<delete id="removeDisciplinesById">
+		DELETE FROM
+			ACADEMIC_DISCIPLINES
+		WHERE 
+			ACADEMIC_DISCIPLINES_ID = #{id}
+	</delete>
+</mapper>

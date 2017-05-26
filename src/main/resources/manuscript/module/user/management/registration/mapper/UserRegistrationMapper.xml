@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+  'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='manuscript.module.user.management.registration.mapper.UserRegistrationMapper'>
+
+	<select id="isUserNameReserved" resultType="int">
+		SELECT 
+			COUNT(USERNAME) 
+		FROM 
+			USR_ALIAS 
+		WHERE 
+			USERNAME = #{userName}
+	</select>
+	
+	<select id="getDefaultRoles" resultType="manuscript.module.user.management.bean.Role">
+		SELECT 
+			ROLE_ID as roleId, 
+			ROLE as role
+		FROM 
+			ROLE 
+		WHERE IS_DEFAULT = 1
+	</select>
+	
+	<insert id="insertUserAlias">
+	INSERT INTO 
+		USR_ALIAS 
+		(
+			USERNAME
+		) 
+		values 
+		(
+			#{userName}
+		)
+	</insert>
+	
+	<insert id="insertUser">
+	INSERT INTO
+	    USR_USER
+	    (
+	        USER_ID,
+	        TITLE,
+	        FIRST_NAME,
+	        LAST_NAME,
+	        EMAIL,
+	        JOB
+	    )
+	    VALUES
+	    (
+	        #{userId},
+	        #{user.title},
+	        #{user.firstName},
+	        #{user.lastName},
+	        #{user.email},
+	        #{user.job}
+	    )
+	</insert>
+	
+	<insert id="insertPassword">
+	INSERT INTO
+	    USR_PASSWORD
+	    (
+	        USER_ID,
+	        PASSWORD
+	    )
+	    VALUES
+	    (
+	        #{userId},
+	        #{password.password}
+	    )
+	</insert>
+	
+	<insert id="insertLogin">
+	INSERT INTO
+	    LOGIN
+	    (
+	        USERNAME,
+	        PASSWORD_ID
+	    )
+	    VALUES
+	    (
+	        #{userName},
+	        #{passwordId}
+	    )
+	</insert>
+	
+	<insert id="insertUserRoles" parameterType="java.util.List">
+	INSERT INTO
+	    USR_ROLES
+	    (
+	        ROLE_ID,
+	        USER_ID
+	    ) 
+	    VALUES
+	    	<foreach item="element" collection="roles"  separator=",">
+		        (
+		        	#{element.roleId} , #{userId}
+		        )
+        	</foreach>
+	</insert>
+	
+	<select id="getUserId" resultType="int">
+		SELECT 
+			USER_ID 
+		FROM 
+			USR_ALIAS 
+		WHERE 
+			USERNAME = #{userName}
+	</select>
+	
+	<select id="getPasswordId" resultType="int">
+	SELECT 
+		PASSWORD_ID
+	FROM
+		USR_PASSWORD
+	WHERE
+		USER_ID = #{userId}
+	</select>
+	
+	<select id="insertAcadamicDisciplines" parameterType="java.util.List">
+	INSERT INTO
+	    USR_ACADEMIC_DISCIPLINES
+	    (
+	        ACADEMIC_DISCIPLINES_ID,
+	        USER_ID
+	    )
+	    VALUES
+	    <foreach item="element" collection="academicDisciplines"  separator=",">
+	        (
+	        #{element.academicDisciplinesId} , #{userId}
+	        )
+    	</foreach>
+	</select>
+</mapper>
