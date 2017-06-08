@@ -2,29 +2,20 @@
 <!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
   'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
 <mapper namespace='manuscript.module.user.management.personaldata.settings.mapper.PersonalDataSettingsMapper'>
-	
-	<resultMap type="manuscript.module.user.management.bean.User" id="User">
-		<id column="USERNAME" property="userName"/>
-		<id column="TITLE" property="title"/>
-		<id column="FIRST_NAME" property="firstName"/>
-		<id column="LAST_NAME" property="lastName"/>
-		<id column="EMAIL" property="email"/>
-		<id column="JOB" property="job"/>
-	</resultMap>
-	
+		
 	<resultMap type="manuscript.module.user.management.bean.AcademicDisciplines" id="AcademicDisciplines">
 		<id column="ACADEMIC_DISCIPLINES_ID" jdbcType="VARCHAR" property="academicDisciplinesId" />
 		<id column="ACADEMIC_DISCIPLINES_NAME" jdbcType="VARCHAR" property="academicDisciplinesName" />
 	</resultMap>
 	
-	<select id="getUserData" resultMap="User">
+	<select id="getUserData" resultType="manuscript.module.user.management.bean.User">
 		SELECT 
-			USERNAME, 
-			TITLE, 
-			FIRST_NAME, 
-			LAST_NAME, 
-			EMAIL, 
-			JOB 
+			USERNAME as userName, 
+			TITLE as title, 
+			FIRST_NAME as firstName, 
+			LAST_NAME as lastName, 
+			EMAIL as email, 
+			JOB as job
 		FROM 
 			USR_ALIAS AS ALIAS INNER JOIN USR_USER AS USER ON ALIAS.USER_ID = USER.USER_ID 
 		WHERE 
