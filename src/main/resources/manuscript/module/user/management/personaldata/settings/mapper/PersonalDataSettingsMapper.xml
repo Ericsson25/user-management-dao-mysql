@@ -3,11 +3,6 @@
   'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
 <mapper namespace='manuscript.module.user.management.personaldata.settings.mapper.PersonalDataSettingsMapper'>
 		
-	<resultMap type="manuscript.module.user.management.bean.AcademicDisciplines" id="AcademicDisciplines">
-		<id column="ACADEMIC_DISCIPLINES_ID" jdbcType="VARCHAR" property="academicDisciplinesId" />
-		<id column="ACADEMIC_DISCIPLINES_NAME" jdbcType="VARCHAR" property="academicDisciplinesName" />
-	</resultMap>
-	
 	<select id="getUserData" resultType="manuscript.module.user.management.bean.User">
 		SELECT 
 			USERNAME as userName, 
@@ -23,15 +18,16 @@
 	</select>
 	
 	<update id="updatePersonalData">
-		update usr_user
+		UPDATE USR_USER
 			<set>
-				<if test="personalData.title != null">title = #{personalData.title},</if>
-				<if test="personalData.firstName != null">first_name = #{personalData.firstName},</if>
-				<if test="personalData.lastName != null">last_name = #{personalData.lastName},</if>
-				<if test="personalData.job != null">job = #{personalData.job},</if>
-				<if test="personalData.email != null">email = #{personalData.email}</if>
+				<if test="personalData.title != null">TITLE = #{personalData.title},</if>
+				<if test="personalData.firstName != null">FIRST_NAME = #{personalData.firstName},</if>
+				<if test="personalData.lastName != null">LAST_NAME = #{personalData.lastName},</if>
+				<if test="personalData.job != null">JOB = #{personalData.job},</if>
+				<if test="personalData.email != null">EMAIL = #{personalData.email}</if>
 			</set>
-		where user_id = #{userId}
+		WHERE 
+			USER_ID = #{userId}
 	</update>
 	
 	<select id="getPasswordByUserId" resultType="string">
@@ -47,23 +43,4 @@
 			</set>
 		where user_id = #{password.userId}
 	</update>
-	
-	<delete id="removeAcademicDisciplinesByUserId">
-		delete from usr_academicdisciplines where user_id = #{userId}
-	</delete>
-	
-	<insert id="insertAcademicDisciplinesByUserId" parameterType="java.util.List">
-	INSERT INTO
-	    USR_ACADEMICDISCIPLINES
-	    (
-	        ACADEMIC_DISCIPLINES_ID,
-	        USER_ID
-	    )
-	    VALUES
-	    <foreach item="element" collection="disciplines"  separator=",">
-	        (
-	        #{element.academicDisciplinesId} , #{userId}
-	        )
-    	</foreach>
-	</insert>
 </mapper>

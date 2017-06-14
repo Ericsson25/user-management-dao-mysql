@@ -8,8 +8,20 @@ import manuscript.module.user.management.request.UpdatePassword;
 
 public interface PersonalDataSettingsMapper {
 
+	/**
+	 * A paraméterben megadott felhasználó id alapján visszaadja a felhasználó adatait.
+	 * 
+	 * @param userId
+	 * @return {@link User}
+	 */
 	public User getUserData(@Param("userId") String userId);
 
+	/**
+	 * A paraméterben megkapott (felhasználó által megadott) adatokkal frissíti a felhasználó adatait
+	 * 
+	 * @param request
+	 * @param userId
+	 */
 	public void updatePersonalData(@Param("personalData") SavePersonalDataRequest request,
 			@Param("userId") String userId);
 
