@@ -20,4 +20,10 @@ public interface AcademicDisciplinesMapper {
 	public AcademicDisciplines getSingleDisciplinesById(@Param("id") String disciplinesId);
 
 	public void removeDisciplinesById(@Param("id") String disciplinesId);
+
+	public List<AcademicDisciplines> getDisciplinesByUserId(@Param("userId") String userId);
+
+	public void updateDisciplinesByUserId(@Param("userId") String userId, @Param("disciplines") List<AcademicDisciplines> academicDisciplines);
+
+	public int removeDisciplinesByUserId(@Param("userId") String userId);
 }

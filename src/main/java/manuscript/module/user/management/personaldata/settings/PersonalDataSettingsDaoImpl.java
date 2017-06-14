@@ -1,17 +1,11 @@
 package manuscript.module.user.management.personaldata.settings;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
-import manuscript.module.user.management.bean.AcademicDisciplines;
 import manuscript.module.user.management.bean.User;
 import manuscript.module.user.management.exception.UserNotFoundException;
 import manuscript.module.user.management.personaldata.settings.mapper.PersonalDataSettingsMapper;
 import manuscript.module.user.management.request.SavePersonalDataRequest;
-import manuscript.module.user.management.request.UpdateAcademicDisciplinesRequest;
 import manuscript.module.user.management.request.UpdatePassword;
 
 /**
@@ -38,11 +32,6 @@ public class PersonalDataSettingsDaoImpl implements PersonalDataSettingsDao {
 	}
 
 	@Override
-	public List<AcademicDisciplines> getAcademicDisciplinesByUserId(String userId) {
-		return personalDataSettingsMapper.getAcademicDisciplinesById(userId);
-	}
-
-	@Override
 	public void updatePersonalData(SavePersonalDataRequest request, String userId) {
 		personalDataSettingsMapper.updatePersonalData(request, userId);
 	}
@@ -55,13 +44,6 @@ public class PersonalDataSettingsDaoImpl implements PersonalDataSettingsDao {
 	@Override
 	public void updatePassword(UpdatePassword updatePassword) {
 		personalDataSettingsMapper.updatePasswordByUserId(updatePassword);
-	}
-
-	@Override
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public void updateAcademicDisciplinesByUserId(UpdateAcademicDisciplinesRequest academicDisciplinesRequest, String userId) {
-		personalDataSettingsMapper.removeAcademicDisciplinesByUserId(userId);
-		personalDataSettingsMapper.insertAcademicDisciplinesByUserId(academicDisciplinesRequest.getAcademicDisciplines(), userId);
 	}
 
 }

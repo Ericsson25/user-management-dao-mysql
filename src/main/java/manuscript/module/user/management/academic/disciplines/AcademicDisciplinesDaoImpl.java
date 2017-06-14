@@ -6,9 +6,12 @@ import java.util.List;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import manuscript.module.user.management.academic.disciplines.mapper.AcademicDisciplinesMapper;
 import manuscript.module.user.management.bean.AcademicDisciplines;
+import manuscript.module.user.management.exception.DisciplinesUpdateException;
 
 @Repository
 public class AcademicDisciplinesDaoImpl implements AcademicDisciplinesDao {
@@ -47,4 +50,20 @@ public class AcademicDisciplinesDaoImpl implements AcademicDisciplinesDao {
 	public void removeDisciplinesById(String disciplinesId) {
 		academicDisciplinesMapper.removeDisciplinesById(disciplinesId);
 	}
+
+	@Override
+	public List<AcademicDisciplines> getDisciplinesByUserId(String userId) {
+		return academicDisciplinesMapper.getDisciplinesByUserId(userId);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
+	public void updateDisciplinesByUserId(String userId, List<AcademicDisciplines> academicDisciplines) {
+		academicDisciplinesMapper.removeDisciplinesByUserId(userId);
+		if (academicDisciplines.isEmpty()) {
+			throw new DisciplinesUpdateException("The give disciplinse list must not be empty!");
+		}
+		academicDisciplinesMapper.updateDisciplinesByUserId(userId, academicDisciplines);
+	}
+
 }

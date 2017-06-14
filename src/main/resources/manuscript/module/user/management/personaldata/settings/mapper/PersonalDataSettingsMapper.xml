@@ -22,11 +22,6 @@
 			USER.USER_ID = #{userId};
 	</select>
 	
-	<select id="getAcademicDisciplinesById" resultMap="AcademicDisciplines">
-		select ACADEMIC_DISCIPLINES_ID, ACADEMIC_DISCIPLINES_NAME from academic_disciplines where ACADEMIC_DISCIPLINES_ID in (
-			select ACADEMIC_DISCIPLINES_ID from usr_academicdisciplines where USER_ID = #{userId});
-	</select>
-	
 	<update id="updatePersonalData">
 		update usr_user
 			<set>

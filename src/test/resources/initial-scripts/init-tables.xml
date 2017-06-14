@@ -7,5 +7,19 @@
 		<insert tableName="USR_ALIAS">
 			<column name="USERNAME" value="dummmy" />
 		</insert>
+		
+		<insert tableName="USR_ALIAS">
+			<column name="USERNAME" value="dummmy2" />
+		</insert>
+		
+		<insert tableName="USR_ACADEMIC_DISCIPLINES">
+			<column name="ACADEMIC_DISCIPLINES_ID" value="01"/>
+			<column name="USER_ID" value="1"/>
+		</insert>
+		
+		<insert tableName="USR_ACADEMIC_DISCIPLINES">
+			<column name="ACADEMIC_DISCIPLINES_ID" value="06069"/>
+			<column name="USER_ID" value="1"/>
+		</insert>
 	</changeSet>
 </databaseChangeLog>

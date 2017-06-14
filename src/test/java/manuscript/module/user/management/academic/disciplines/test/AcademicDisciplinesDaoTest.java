@@ -1,5 +1,6 @@
 package manuscript.module.user.management.academic.disciplines.test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import manuscript.module.user.management.academic.disciplines.AcademicDisciplinesDao;
 import manuscript.module.user.management.bean.AcademicDisciplines;
+import manuscript.module.user.management.exception.DisciplinesUpdateException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = AcademicDisciplinesDaoContext.class)
@@ -28,6 +30,9 @@ public class AcademicDisciplinesDaoTest {
 	private AcademicDisciplines insertDisciplines;
 	private AcademicDisciplines removeDisciplines;
 
+	private String userIdWhoHasDisciplines;
+	private String userIdWhoHasNotDisciplines;
+
 	@Before
 	public void before() {
 		updateDisciplinesName = new AcademicDisciplines();
@@ -40,6 +45,9 @@ public class AcademicDisciplinesDaoTest {
 
 		removeDisciplines = new AcademicDisciplines();
 		removeDisciplines.setAcademicDisciplinesId("10");
+
+		userIdWhoHasDisciplines = "1";
+		userIdWhoHasNotDisciplines = "2";
 	}
 
 	@Test
@@ -96,4 +104,39 @@ public class AcademicDisciplinesDaoTest {
 
 		Assert.assertNull("removedDisiciplines must be null", removedDisiciplines);
 	}
+
+	@Test
+	public void getDisciplinesByUserId_test_with_result() {
+		List<AcademicDisciplines> disciplines = academicDisciplinesDao.getDisciplinesByUserId(userIdWhoHasDisciplines);
+
+		Assert.assertNotNull("disciplines must not be null", disciplines);
+		Assert.assertTrue("Size of the disciplines list must be 2", disciplines.size() == 2);
+	}
+
+	@Test
+	public void getDisciplinesByUserId_test_without_result() {
+		List<AcademicDisciplines> disciplines = academicDisciplinesDao.getDisciplinesByUserId(userIdWhoHasNotDisciplines);
+
+		Assert.assertNotNull("disciplines must not be null", disciplines);
+		Assert.assertTrue("Size of the disciplines list must be 2", disciplines.size() == 0);
+	}
+
+	@Test(expected = DisciplinesUpdateException.class)
+	public void updateDisciplinesByUserId_test_with_exception_result() {
+		List<AcademicDisciplines> disciplines = new ArrayList<>();
+		academicDisciplinesDao.updateDisciplinesByUserId(userIdWhoHasDisciplines, disciplines);
+	}
+
+	@Test
+	public void updateDisciplinesByUserId_test_with_success_result() {
+		List<AcademicDisciplines> disciplines = new ArrayList<>();
+		disciplines.add(updateDisciplinesName);
+		academicDisciplinesDao.updateDisciplinesByUserId(userIdWhoHasDisciplines, disciplines); // update
+
+		List<AcademicDisciplines> modifiedDisciplinesList = academicDisciplinesDao.getDisciplinesByUserId(userIdWhoHasDisciplines);
+
+		Assert.assertTrue("modified list must not be empty", !modifiedDisciplinesList.isEmpty());
+		Assert.assertTrue("The update and the given disciplines need to be the same", modifiedDisciplinesList.size() == 1);
+	}
+
 }

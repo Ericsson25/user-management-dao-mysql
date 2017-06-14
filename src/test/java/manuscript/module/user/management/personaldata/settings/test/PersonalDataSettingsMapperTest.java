@@ -1,6 +1,6 @@
 package manuscript.module.user.management.personaldata.settings.test;
 
-import org.junit.Test;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,15 +13,16 @@ import manuscript.module.user.management.personaldata.settings.PersonalDataSetti
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = PersonalDataSettingsMapperContext.class)
 @Transactional
+@Ignore
 public class PersonalDataSettingsMapperTest {
 
 	@Autowired
 	private PersonalDataSettingsDao personalDataSettingsDao;
 
-	@Test
-	public void getUserDataTest_withExceptionResult() {
-		personalDataSettingsDao.getUserData("1");
-	}
+	// @Test
+	// public void getUserDataTest_withExceptionResult() {
+	// personalDataSettingsDao.getUserData("1");
+	// }
 	//
 	// private static List<AcademicDisciplines> academicDisciplines;
 	// private static AuthenticatedUser authenticatedUser;

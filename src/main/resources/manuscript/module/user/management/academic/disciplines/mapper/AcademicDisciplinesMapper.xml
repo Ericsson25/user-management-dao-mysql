@@ -51,4 +51,44 @@
 		WHERE 
 			ACADEMIC_DISCIPLINES_ID = #{id}
 	</delete>
+	
+	<select id="getDisciplinesByUserId" resultType="manuscript.module.user.management.bean.AcademicDisciplines">
+		SELECT 
+			ACADEMIC_DISCIPLINES_ID as academicDisciplinesId, 
+			ACADEMIC_DISCIPLINES_NAME as academicDisciplinesName 
+		FROM 
+			ACADEMIC_DISCIPLINES 
+		WHERE 
+			ACADEMIC_DISCIPLINES_ID 
+		IN 
+		(
+		SELECT 
+			ACADEMIC_DISCIPLINES_ID 
+		FROM 
+			USR_ACADEMIC_DISCIPLINES 
+		WHERE USER_ID = #{userId}
+		)
+	</select>
+	
+	<delete id="removeDisciplinesByUserId">
+		DELETE FROM
+			USR_ACADEMIC_DISCIPLINES
+		WHERE 
+			USER_ID = #{userId}
+	</delete>
+	
+	<insert id="updateDisciplinesByUserId" parameterType="java.util.List">
+		INSERT INTO
+	    	USR_ACADEMIC_DISCIPLINES
+		(
+		    ACADEMIC_DISCIPLINES_ID,
+		    USER_ID
+		)
+		VALUES
+		<foreach item="element" collection="disciplines"  separator=",">
+		(
+			#{element.academicDisciplinesId} , #{userId}
+		)
+	    </foreach>
+	</insert>
 </mapper>
