@@ -45,6 +45,7 @@ public class PersonalDataSettingsDaoImpl implements PersonalDataSettingsDao {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 	public void updatePassword(UpdatePassword updatePassword) {
 		personalDataSettingsMapper.updatePasswordByUserId(updatePassword);
 	}

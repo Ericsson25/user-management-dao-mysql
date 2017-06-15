@@ -31,16 +31,22 @@
 	</update>
 	
 	<select id="getPasswordByUserId" resultType="string">
-		select password from usr_password where user_id = #{userId}
+		SELECT 
+			PASSWORD 
+		FROM 
+			USR_PASSWORD 
+		WHERE 
+			USER_ID = #{userId}
 	</select>
 	
 	<update id="updatePasswordByUserId">
-		update usr_password
+		UPDATE 
+			USR_PASSWORD
 			<set>
-				password = #{password.encryptedPassword},
-				creationdate = CURRENT_TIMESTAMP,
-				expirydate = DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 150 DAY)
+				PASSWORD = #{password.encryptedPassword},
+				CREATION_DATE = CURRENT_TIMESTAMP,
+				EXPIRY_DATE = DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 150 DAY)
 			</set>
-		where user_id = #{password.userId}
+		WHERE USER_ID = #{password.userId}
 	</update>
 </mapper>

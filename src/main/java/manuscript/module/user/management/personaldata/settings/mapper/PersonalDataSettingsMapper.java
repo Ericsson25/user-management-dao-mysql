@@ -6,6 +6,11 @@ import manuscript.module.user.management.bean.User;
 import manuscript.module.user.management.request.SavePersonalDataRequest;
 import manuscript.module.user.management.request.UpdatePassword;
 
+/**
+ * 
+ * @author Balázs Kovács
+ *
+ */
 public interface PersonalDataSettingsMapper {
 
 	/**
@@ -22,10 +27,20 @@ public interface PersonalDataSettingsMapper {
 	 * @param request
 	 * @param userId
 	 */
-	public void updatePersonalData(@Param("personalData") SavePersonalDataRequest request,
-			@Param("userId") String userId);
+	public void updatePersonalData(@Param("personalData") SavePersonalDataRequest request, @Param("userId") String userId);
 
+	/**
+	 * Visszaadja a userid szerint a jelszót.
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	public String getPasswordByUserId(@Param("userId") String userId);
 
+	/**
+	 * Updateli a USR_PASSWORD táblát a megadott új jelszóval az adott felhasználóhoz.
+	 * 
+	 * @param updatePassword
+	 */
 	public void updatePasswordByUserId(@Param("password") UpdatePassword updatePassword);
 }

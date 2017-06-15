@@ -14,7 +14,7 @@ import manuscript.test.dao.context.AbstractDaoTestContext;
 @IgnoreTestContext
 @Configuration
 @MapperScan("manuscript.module.user.management.personaldata.settings.mapper")
-public class PersonalDataSettingsMapperContext extends AbstractDaoTestContext{
+public class PersonalDataSettingsDaoContext extends AbstractDaoTestContext{
 
 	@Autowired
 	private PersonalDataSettingsMapper personalDataSettingsMapper;
