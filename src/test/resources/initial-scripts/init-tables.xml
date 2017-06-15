@@ -7,28 +7,33 @@
 		<insert tableName="USR_ALIAS">
 			<column name="USERNAME" value="dummmy" />
 		</insert>
-		
+
 		<insert tableName="USR_USER">
-			<column name="USER_ID" value="1"/>
-			<column name="TITLE" value="Mr"/>
-			<column name="FIRST_NAME" value="Dummy"/>
-			<column name="LAST_NAME" value="Dummy"/>
-			<column name="EMAIL" value="Dummy@gmail.com"/>
-			<column name="JOB" value="Dummy things"/>
+			<column name="USER_ID" value="1" />
+			<column name="TITLE" value="Mr" />
+			<column name="FIRST_NAME" value="Dummy" />
+			<column name="LAST_NAME" value="Dummy" />
+			<column name="EMAIL" value="Dummy@gmail.com" />
+			<column name="JOB" value="Dummy things" />
 		</insert>
-		
+
+		<insert tableName="USR_PASSWORD">
+			<column name="USER_ID" value="1" />
+			<column name="PASSWORD" value="$2a$10$c37LKF/Y5tDFIMjVqp7ZLebfCshu6RjQPWdSPEXX7qJSiZnT5gN.a"/>
+		</insert>
+
 		<insert tableName="USR_ALIAS">
 			<column name="USERNAME" value="dummmy2" />
 		</insert>
-		
+
 		<insert tableName="USR_ACADEMIC_DISCIPLINES">
-			<column name="ACADEMIC_DISCIPLINES_ID" value="01"/>
-			<column name="USER_ID" value="1"/>
+			<column name="ACADEMIC_DISCIPLINES_ID" value="01" />
+			<column name="USER_ID" value="1" />
 		</insert>
-		
+
 		<insert tableName="USR_ACADEMIC_DISCIPLINES">
-			<column name="ACADEMIC_DISCIPLINES_ID" value="06069"/>
-			<column name="USER_ID" value="1"/>
+			<column name="ACADEMIC_DISCIPLINES_ID" value="06069" />
+			<column name="USER_ID" value="1" />
 		</insert>
 	</changeSet>
 </databaseChangeLog>
