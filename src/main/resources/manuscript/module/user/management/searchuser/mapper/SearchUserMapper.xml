@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+  'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='manuscript.module.user.management.searchuser.mapper.SearchUserMapper'>
+
+	<select id="getUsers" resultType="manuscript.module.user.management.bean.User">
+		SELECT 
+			user.TITLE as title, 
+			user.FIRST_NAME as firstName,
+			user.LAST_NAME as lastName,
+			user.EMAIL as email,
+			user.USER_ID as userId
+		FROM 
+			USR_USER user 
+		INNER JOIN 
+			USR_ROLES usrrole 
+		ON 
+			user.user_ID = usrrole.USER_ID 
+		WHERE 
+			usrrole.ROLE_ID = 
+			(
+				SELECT 
+					ROLE_ID 
+				FROM 
+					role 
+				WHERE 
+					ROLE = #{searchUser.role}
+			) 
+			<if test="searchUser.firstName != null">
+				AND 
+					user.FIRST_NAME = #{searchUser.firstName}
+			</if>
+			<if test="searchUser.lastName != null">
+				AND 
+					user.LAST_NAME = #{searchUser.lastName}
+			</if>
+			<if test="searchUser.email != null">
+				AND 
+					user.EMAIL = #{searchUser.email}
+			</if>	
+	</select>
+	
+</mapper>

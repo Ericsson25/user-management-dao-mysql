@@ -35,5 +35,15 @@
 			<column name="ACADEMIC_DISCIPLINES_ID" value="06069" />
 			<column name="USER_ID" value="1" />
 		</insert>
+		
+		<insert tableName="USR_ROLES">
+			<column name="ROLE_ID" value="1"/>
+			<column name="USER_ID" value="1"/>
+		</insert>
+		
+		<insert tableName="USR_ROLES">
+			<column name="ROLE_ID" value="2"/>
+			<column name="USER_ID" value="1"/>
+		</insert>
 	</changeSet>
 </databaseChangeLog>
